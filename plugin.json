@@ -1,0 +1,22 @@
+{
+  "name": "Decky Dictation",
+  "author": "cboiangiu",
+  "flags": [
+    "debug"
+  ],
+  "publish": {
+    "tags": [
+      "dictation",
+      "stt",
+      "speech",
+      "to",
+      "text",
+      "input",
+      "voice",
+      "chat",
+      "words"
+    ],
+    "description": "Enjoy speech to text input with Decky Dictation",
+    "image": "https://github.com/cboiangiu/decky-dictation/raw/main/decky-dictation-screenshot.jpg"
+  }
+}
