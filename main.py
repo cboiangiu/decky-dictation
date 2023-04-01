@@ -25,7 +25,7 @@ class Plugin:
     async def begin(self):
         try:
             logger.info("Begin dictation")
-            subprocess.Popen("/home/deck/homebrew/plugins/decky-dictation/bin/nerd-dictation/nerd-dictation begin --vosk-model-dir=/home/deck/homebrew/plugins/decky-dictation/bin/nerd-dictation/model --numbers-min-value 2 --numbers-no-suffix --full-sentence --numbers-as-digits --numbers-use-separator --timeout 4, --punctuate-from-previous-timeout 2 &", shell=True, stdout=std_out_file, stderr=std_err_file)
+            subprocess.Popen("/home/deck/homebrew/plugins/decky-dictation/bin/nerd-dictation/nerd-dictation begin --vosk-model-dir=/home/deck/homebrew/plugins/decky-dictation/bin/nerd-dictation/model --numbers-min-value 2 --numbers-no-suffix --full-sentence --numbers-as-digits --numbers-use-separator --timeout 4 --punctuate-from-previous-timeout 2 &", shell=True, stdout=std_out_file, stderr=std_err_file)
         except Exception:
             await Plugin.end(self)
             logger.info(traceback.format_exc())
