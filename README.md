@@ -10,6 +10,7 @@ This plugin was made with the [decky-plugin-template](https://github.com/SteamDe
 
 ### Changelog
 - 1.0.0 - change hotkeys to avoid collision with steamOS
+- 0.2.1 - update pnpm and DFL
 - 0.2.0 - decky-dictation is born, also added timeout, sentences, casing and punctuation for nerd-dictation
 - 0.1.0 - initial version
 
