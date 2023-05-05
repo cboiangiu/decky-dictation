@@ -57,7 +57,7 @@ class DeckyDictationLogic {
 			if (Date.now() - this.pressedAt < 2000) {
 				continue;
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 7)) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 1)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -66,7 +66,7 @@ class DeckyDictationLogic {
 				await this.notify("Decky Dictation", 2000, "Starting speech to text input");
 				await this.serverAPI.callPluginMethod('begin', {});
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5)) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 3)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -85,9 +85,9 @@ const DeckyDictation: VFC = () => {
 		<PanelSection title="How to use:">
 			<PanelSectionRow>
 				<div>
-					STEAM + A to begin speech to text input
+					STEAM + B + L2 to begin speech to text input
 					<br />
-					STEAM + B to end speech to text input
+					STEAM + B + R2 to end speech to text input
 				</div>
 				<div>
 					Currently this plugin only works in a game (first opened game if you have more opened at once; not working in home, store or steam chat ui etc).

@@ -1,6 +1,6 @@
 {
   "name": "decky-dictation",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "This plugin allows speech to text input.",
   "scripts": {
     "build": "shx rm -rf dist && rollup -c",
