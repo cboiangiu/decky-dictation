@@ -66,7 +66,7 @@ class DeckyDictationLogic {
 				await this.notify("Decky Dictation", 2000, "Starting speech to text input");
 				await this.serverAPI.callPluginMethod('begin', {});
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 3)) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 0)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
