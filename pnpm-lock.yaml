@@ -2,11 +2,11 @@ lockfileVersion: '6.0'
 
 dependencies:
   decky-frontend-lib:
-    specifier: ^3.20.4
-    version: 3.20.4
+    specifier: ^3.20.6
+    version: 3.20.6
   react-icons:
-    specifier: ^4.4.0
-    version: 4.4.0
+    specifier: ^4.8.0
+    version: 4.8.0
 
 devDependencies:
   '@rollup/plugin-commonjs':
@@ -430,8 +430,8 @@ packages:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: true
 
-  /decky-frontend-lib@3.20.4:
-    resolution: {integrity: sha512-DJgVonmk3lmRc/9w2FM/CE2WXlsl2E9bbEYl9FMtiptQmMJCkrBqoQM49J4QpEYdn9akHYYw/wcGa56/zJupOw==}
+  /decky-frontend-lib@3.20.6:
+    resolution: {integrity: sha512-imx3vgVpFm3p9+Pw5cjN964PB6Gt+4HGXkwgDRrySgyTOg8luSUB5DuJPR0Pu5a4wpVNrewKx6Qt+MTqJpN6SQ==}
     dev: false
 
   /deepmerge@4.3.1:
@@ -693,8 +693,8 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /react-icons@4.4.0:
-    resolution: {integrity: sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==}
+  /react-icons@4.8.0:
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
