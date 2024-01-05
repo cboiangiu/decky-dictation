@@ -13,7 +13,8 @@ docker_name="backend-decky-dictation"
 [ -f $PWD/backend/entrypoint.sh ] && entrypoint_exists=true
 
 # If gfind not on system. Fallback to find.
-if [ ! -z "$(command -v gfind)" ]; then
+if [ -z "$(command -v gfind)" ]; then
+  shopt -s expand_aliases
   alias gfind="$(command -v find)"
 fi
 
@@ -61,13 +62,13 @@ zipname=/tmp/zips/${plugin}.zip
 echo $plugin
 # Names of the optional files (the license can either be called license or license.md, not both)
 # (head is there to take the first file, because we're assuming there's only a single license file)
-license="$(find . -maxdepth 1 -type f \( -iname "license" -o -iname "license.md" \) -printf '%P\n' | head -n 1)"
-readme="$(find . -maxdepth 1 -type f -iname 'readme.md' -printf '%P\n')"
-haspython="$(find . -maxdepth 1 -type f -name '*.py' -printf '%P\n')"
+license="$(gfind . -maxdepth 1 -type f \( -iname "license" -o -iname "license.md" \) -printf '%P\n' | head -n 1)"
+readme="$(gfind . -maxdepth 1 -type f -iname 'readme.md' -printf '%P\n')"
+haspython="$(gfind . -maxdepth 1 -type f -name '*.py' -printf '%P\n')"
 # Check if plugin has a bin folder, if so, add "bin" and it's contents to root dir
-hasbin="$(find . -maxdepth 1 -type d -name 'bin' -printf '%P\n')"
+hasbin="$(gfind . -maxdepth 1 -type d -name 'bin' -printf '%P\n')"
 # Check if plugin has a defaults folder, if so, add "default" contents to root dir
-hasdefaults="$(find . -maxdepth 1 -type d -name 'defaults' -printf '%P\n')"
+hasdefaults="$(gfind . -maxdepth 1 -type d -name 'defaults' -printf '%P\n')"
 #          if [[ "${{ secrets.STORE_ENV }}" == "testing" ]]; then
 #            long_sha="${{ github.event.pull_request.head.sha || github.sha }}"
 #            sha=$(echo $long_sha | cut -c1-7)
@@ -84,7 +85,7 @@ if [ ! -z "$hasbin" ]; then
 fi
 if [ ! -z "$haspython" ]; then
   echo "*.py"
-  find . -maxdepth 1 -type f -name '*.py' -exec zip -r $zipname {} \;
+  gfind . -maxdepth 1 -type f -name '*.py' -exec zip -r $zipname {} \;
 fi
 if [ ! -z "$hasdefaults" ]; then
   export workingdir=$PWD
@@ -92,7 +93,7 @@ if [ ! -z "$hasdefaults" ]; then
   export plugin="$plugin"
   export zipname="$zipname"
   if [ ! -f "defaults.txt" ]; then
-    find . -mindepth 1 -type d,f -name '*' -exec bash -c '
+    gfind . -mindepth 1 -type d,f -name '*' -exec bash -c '
                 for object do
                   outdir="/tmp/output"
                   name="$(basename $object)"
