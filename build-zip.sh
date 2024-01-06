@@ -12,6 +12,12 @@ docker_name="backend-decky-dictation"
 [ -f $PWD/backend/Dockerfile ] && dockerfile_exists=true
 [ -f $PWD/backend/entrypoint.sh ] && entrypoint_exists=true
 
+# If gfind not on system. Fallback to find.
+if [ -z "$(command -v gfind)" ]; then
+  shopt -s expand_aliases
+  alias gfind="$(command -v find)"
+fi
+
 #build backend
 if [[ "$dockerfile_exists" == "true" ]]; then
   echo "Grabbing provided dockerfile."
