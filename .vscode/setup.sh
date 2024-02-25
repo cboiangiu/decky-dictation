@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+
+PLATFORM="$1"
+
+if [ $PLATFORM = "macOS" ]; then
+    if [[ $(uname -m) == 'arm64' ]]; then
+        PLATFORM+="-aarch64"
+    else
+        PLATFORM+="-x86_64"
+    fi
+fi
+
 PNPM_INSTALLED="$(which pnpm)"
 DOCKER_INSTALLED="$(which docker)"
 CLI_INSTALLED="$(pwd)/cli/decky"
@@ -41,7 +52,7 @@ if ! test -f "$CLI_INSTALLED"; then
         echo "You have chosen to not install the Decky CLI tool to build your plugins. Please install this tool to build and test your plugin before submitting it to the Plugin Database."
     else
         mkdir "$(pwd)"/cli
-        curl -L -o "$(pwd)"/cli/decky "https://github.com/SteamDeckHomebrew/cli/releases/latest/download/decky"
+        curl -L -o "$(pwd)"/cli/decky "https://github.com/SteamDeckHomebrew/cli/releases/latest/download/decky-$PLATFORM"
         chmod +x "$(pwd)"/cli/decky
         echo "Decky CLI tool is now installed and you can build plugins into easy zip files using the "Build Zip" Task in vscodium."
     fi

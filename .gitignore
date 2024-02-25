@@ -48,3 +48,10 @@ backend/out
 decky-dictation.zip
 bin
 /.pnpm-store
+
+# Ignore decky CLI for building plugins
+out
+out/*
+cli/
+cli/*
+cli/decky

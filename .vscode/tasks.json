@@ -9,7 +9,10 @@
             "group": "none",
             "detail": "Install depedencies for basic setup",
             "linux": {
-                "command": "${workspaceFolder}/.vscode/setup.sh",
+                "command": "${workspaceFolder}/.vscode/setup.sh linux-x86_64",
+            },
+            "osx": {
+                "command": "${workspaceFolder}/.vscode/setup.sh macOS",
             },
             // // placeholder for windows scripts, not currently planned
             // "windows": {
@@ -47,6 +50,9 @@
             "linux": {
                 "command": "${workspaceFolder}/.vscode/config.sh",
             },
+            "osx": {
+                "command": "${workspaceFolder}/.vscode/config.sh",
+            },
             // // placeholder for windows scripts, not currently planned
             // "windows": {
             //     "command": "call ${workspaceFolder}\\.vscode\\config.bat",
@@ -59,6 +65,9 @@
             "group": "build",
             "detail": "Build plugin with CLI",
             "linux": {
+                "command": "${workspaceFolder}/.vscode/build.sh",
+            },
+            "osx": {
                 "command": "${workspaceFolder}/.vscode/build.sh",
             },
             // // placeholder for windows logic, not currently planned
