@@ -9,10 +9,10 @@
             "group": "none",
             "detail": "Install depedencies for basic setup",
             "linux": {
-                "command": "${workspaceFolder}/.vscode/setup.sh linux-x86_64",
+                "command": "${workspaceFolder}/.vscode/setup.sh",
             },
             "osx": {
-                "command": "${workspaceFolder}/.vscode/setup.sh macOS",
+                "command": "${workspaceFolder}/.vscode/setup.sh",
             },
             // // placeholder for windows scripts, not currently planned
             // "windows": {
