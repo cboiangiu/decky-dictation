@@ -3,12 +3,15 @@ import {
 	PanelSection,
 	PanelSectionRow,
 	ServerAPI,
-	staticClasses,
+	quickAccessMenuClasses,
 	Router,
+	ToggleField,
 } from "decky-frontend-lib";
 
 import {
 	VFC,
+	useEffect,
+	useState,
 } from "react";
 
 import { FaComment } from "react-icons/fa";
@@ -16,6 +19,7 @@ import { FaComment } from "react-icons/fa";
 class DeckyDictationLogic {
 	serverAPI: ServerAPI;
 	pressedAt: number = Date.now();
+	enabled: boolean = false;
 
 	constructor(serverAPI: ServerAPI) {
 		this.serverAPI = serverAPI;
@@ -34,6 +38,9 @@ class DeckyDictationLogic {
 	}
 
 	handleButtonInput = async (val: any[]) => {
+		if (!this.enabled) {
+			return;
+		}
 		/*
 		R2 0
 		L2 1
@@ -57,7 +64,7 @@ class DeckyDictationLogic {
 			if (Date.now() - this.pressedAt < 2000) {
 				continue;
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 1)) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 15)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -66,7 +73,7 @@ class DeckyDictationLogic {
 				await this.notify("Decky Dictation", 2000, "Starting speech to text input");
 				await this.serverAPI.callPluginMethod('begin', {});
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 13) && inputs.ulButtons & (1 << 5) && inputs.ulButtons & (1 << 0)) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 16)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -80,22 +87,38 @@ class DeckyDictationLogic {
 
 }
 
-const DeckyDictation: VFC = () => {
-	return (
-		<PanelSection title="How to use:">
-			<PanelSectionRow>
-				<div>
-					STEAM + B + L2 to begin speech to text input
-					<br />
-					STEAM + B + R2 to end speech to text input
-				</div>
-				<div>
-					Currently this plugin only works in a game (first opened game if you have more opened at once; not working in home, store or steam chat ui etc).
-				</div>
-			</PanelSectionRow>
-		</PanelSection>
-	);
+const DeckyDictation: VFC<{ logic: DeckyDictationLogic }> = ({ logic }) => {
+	const [enabled, setEnabled] = useState<boolean>(false);
 
+	useEffect(() => {
+		setEnabled(logic.enabled);
+	}, []);
+
+	return (
+		<div>
+			<PanelSection>
+				<PanelSectionRow>
+					<ToggleField
+						label="Enable"
+						checked={enabled}
+						onChange={(e) => { setEnabled(e); logic.enabled = e; }}
+					/>
+				</PanelSectionRow>
+			</PanelSection>
+			<PanelSection title="How to use:">
+				<PanelSectionRow>
+					<div>
+						L5 to begin speech to text input
+						<br />
+						R5 to end speech to text input
+					</div>
+					<div>
+						Currently this plugin only works in a game (first opened game if you have more opened at once; not working in home, store or steam chat ui etc).
+					</div>
+				</PanelSectionRow>
+			</PanelSection>
+		</div>
+	);
 };
 
 
@@ -103,8 +126,8 @@ export default definePlugin((serverApi: ServerAPI) => {
 	let logic = new DeckyDictationLogic(serverApi);
 	let input_register = window.SteamClient.Input.RegisterForControllerStateChanges(logic.handleButtonInput);
 	return {
-		title: <div className={staticClasses.Title}>Decky Dictation</div>,
-		content: <DeckyDictation />,
+		title: <div className={quickAccessMenuClasses.Title}>Decky Dictation</div>,
+		content: <DeckyDictation logic={logic} />,
 		icon: <FaComment />,
 		onDismount() {
 			input_register.unregister();
