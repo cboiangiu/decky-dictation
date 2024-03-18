@@ -16,7 +16,7 @@ This plugin was made with the [decky-plugin-template](https://github.com/SteamDe
 - 0.1.0 - initial version
 
 ### Nice to have
-- Allow support for mode switching and implement persistent config settings; add new push to talk mode (hold L5?)
+- Allow support for mode switching and implement persistent config settings; add new push to talk mode (hold L5?), add new single button toggle mode
 - Implement support for downloading and selecting other models at runtime (some more advanced models are too large to store on git; shippable stays with the small model)
 - Allow the user to configure their hotkeys of choice. (maybe per game?)
 
