@@ -1,7 +1,7 @@
 lockfileVersion: '6.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 dependencies:
@@ -9,8 +9,8 @@ dependencies:
     specifier: ^3.25.0
     version: 3.25.0
   react-icons:
-    specifier: ^4.4.0
-    version: 4.9.0
+    specifier: ^4.12.0
+    version: 4.12.0
 
 devDependencies:
   '@rollup/plugin-commonjs':
@@ -26,16 +26,16 @@ devDependencies:
     specifier: ^4.0.0
     version: 4.0.0(rollup@2.79.1)
   '@rollup/plugin-typescript':
-    specifier: ^8.3.3
-    version: 8.5.0(rollup@2.79.1)(tslib@2.5.2)(typescript@4.9.5)
+    specifier: ^8.5.0
+    version: 8.5.0(rollup@2.79.1)(tslib@2.6.3)(typescript@4.9.5)
   '@types/react':
     specifier: 16.14.0
     version: 16.14.0
   '@types/webpack':
-    specifier: ^5.28.0
-    version: 5.28.1
+    specifier: ^5.28.5
+    version: 5.28.5
   rollup:
-    specifier: ^2.77.1
+    specifier: ^2.79.1
     version: 2.79.1
   rollup-plugin-import-assets:
     specifier: ^1.1.1
@@ -44,10 +44,10 @@ devDependencies:
     specifier: ^0.3.4
     version: 0.3.4
   tslib:
-    specifier: ^2.4.0
-    version: 2.5.2
+    specifier: ^2.6.2
+    version: 2.6.3
   typescript:
-    specifier: ^4.7.4
+    specifier: ^4.9.5
     version: 4.9.5
 
 packages:
@@ -143,7 +143,7 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@rollup/plugin-typescript@8.5.0(rollup@2.79.1)(tslib@2.5.2)(typescript@4.9.5):
+  /@rollup/plugin-typescript@8.5.0(rollup@2.79.1)(tslib@2.6.3)(typescript@4.9.5):
     resolution: {integrity: sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -157,7 +157,7 @@ packages:
       '@rollup/pluginutils': 3.1.0(rollup@2.79.1)
       resolve: 1.22.2
       rollup: 2.79.1
-      tslib: 2.5.2
+      tslib: 2.6.3
       typescript: 4.9.5
     dev: true
 
@@ -220,8 +220,8 @@ packages:
       '@types/node': 20.2.5
     dev: true
 
-  /@types/webpack@5.28.1:
-    resolution: {integrity: sha512-qw1MqGZclCoBrpiSe/hokSgQM/su8Ocpl3L/YHE0L6moyaypg4+5F7Uzq7NgaPKPxUxUbQ4fLPLpDWdR27bCZw==}
+  /@types/webpack@5.28.5:
+    resolution: {integrity: sha512-wR87cgvxj3p6D0Crt1r5avwqffqPXUkNlnQ1mjU93G7gCuFjufZR4I6j8cz5g1F1tTYpfOOFvly+cmIQwL9wvw==}
     dependencies:
       '@types/node': 20.2.5
       tapable: 2.2.1
@@ -697,8 +697,8 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /react-icons@4.9.0:
-    resolution: {integrity: sha512-ijUnFr//ycebOqujtqtV9PFS7JjhWg0QU6ykURVHuL4cbofvRCf3f6GMn9+fBktEFQOIVZnuAYLZdiyadRQRFg==}
+  /react-icons@4.12.0:
+    resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -853,8 +853,8 @@ packages:
       source-map-support: 0.5.21
     dev: true
 
-  /tslib@2.5.2:
-    resolution: {integrity: sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==}
+  /tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
     dev: true
 
   /typescript@4.9.5:
