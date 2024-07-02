@@ -42,15 +42,21 @@ os.environ["DISPLAY"] = (
 
 
 class Plugin:
+    process = None
     # Begins dictation
-    async def begin(self):
-        if not os.path.exists(model_path):
-            logger.info("Model directory not found")
-            return
+    async def begin(self, push_to_dictate: bool):
         try:
+            if not os.path.exists(model_path):
+                logger.info("Model directory not found")
+                return
+            if self.process is not None:
+                if self.process.poll() is None:
+                    logger.info("Dictation currently running, exiting early")
+                    return
             logger.info("Begin dictation")
-            subprocess.Popen(
-                f"{plugin_path}/bin/nerd-dictation/nerd-dictation begin --vosk-model-dir={model_path} --numbers-min-value 2 --numbers-no-suffix --full-sentence --numbers-as-digits --numbers-use-separator --timeout 4 --punctuate-from-previous-timeout 2 &",
+            timeout = ("--timeout 4", "")[push_to_dictate]
+            self.process = subprocess.Popen(
+                f'"{plugin_path}/bin/nerd-dictation/nerd-dictation" begin --vosk-model-dir="{model_path}" --numbers-min-value 2 --numbers-no-suffix --full-sentence --numbers-as-digits --numbers-use-separator {timeout} --punctuate-from-previous-timeout 2',
                 shell=True,
                 stdout=std_out_file,
                 stderr=std_err_file,
@@ -64,12 +70,9 @@ class Plugin:
     async def end(self):
         try:
             logger.info("End dictation")
-            subprocess.Popen(
-                f"{plugin_path}/bin/nerd-dictation/nerd-dictation end",
-                shell=True,
-                stdout=std_out_file,
-                stderr=std_err_file,
-            )
+            if self.process is not None:
+                self.process.kill()
+
         except Exception:
             logger.info(traceback.format_exc())
         return
