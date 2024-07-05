@@ -20,6 +20,8 @@ class DeckyDictationLogic {
 	serverAPI: ServerAPI;
 	pressedAt: number = Date.now();
 	enabled: boolean = false;
+	dictating = false;
+	pushToDictate = false;
 
 	constructor(serverAPI: ServerAPI) {
 		this.serverAPI = serverAPI;
@@ -29,7 +31,7 @@ class DeckyDictationLogic {
 		if (!body) {
 			body = message;
 		}
-		await this.serverAPI.toaster.toast({
+		this.serverAPI.toaster.toast({
 			title: message,
 			body: body,
 			duration: duration,
@@ -40,6 +42,11 @@ class DeckyDictationLogic {
 	handleButtonInput = async (val: any[]) => {
 		if (!this.enabled) {
 			return;
+		}
+		if (this.pushToDictate) {
+			this.handlePushToDictate(val);
+		} else {
+			this.handleToggleMode(val);
 		}
 		/*
 		R2 0
@@ -60,6 +67,25 @@ class DeckyDictationLogic {
 		QAM  ???
 		L5 15
 		R5 16*/
+	}
+
+	handlePushToDictate = async (val: any[]) => {
+		for (const inputs of val) {
+			if (inputs.ulButtons && inputs.ulButtons & (1 << 15)) {
+				if (!this.dictating) {
+					this.dictating = true;
+					this.serverAPI.callPluginMethod('begin', { push_to_dictate: true });
+					this.notify("Decky Dictation", 2000, "Starting speech to text input");
+				}
+			} else if (this.dictating) {
+				this.dictating = false;
+				await this.serverAPI.callPluginMethod('end', {});
+				this.notify("Decky Dictation", 2000, "Ending speech to text input");
+			}
+		}
+	}
+
+	handleToggleMode = async (val: any[]) => {
 		for (const inputs of val) {
 			if (Date.now() - this.pressedAt < 2000) {
 				continue;
@@ -70,8 +96,8 @@ class DeckyDictationLogic {
 				setTimeout(() => {
 					(Router as any).EnableHomeAndQuickAccessButtons();
 				}, 1000)
+				this.serverAPI.callPluginMethod('begin', { push_to_dictate: false });
 				await this.notify("Decky Dictation", 2000, "Starting speech to text input");
-				await this.serverAPI.callPluginMethod('begin', {});
 			}
 			if (inputs.ulButtons && inputs.ulButtons & (1 << 16)) {
 				this.pressedAt = Date.now();
@@ -79,19 +105,20 @@ class DeckyDictationLogic {
 				setTimeout(() => {
 					(Router as any).EnableHomeAndQuickAccessButtons();
 				}, 1000)
+				this.serverAPI.callPluginMethod('end', {});
 				await this.notify("Decky Dictation", 2000, "Ending speech to text input");
-				await this.serverAPI.callPluginMethod('end', {});
 			}
 		}
 	}
-
 }
 
 const DeckyDictation: VFC<{ logic: DeckyDictationLogic }> = ({ logic }) => {
 	const [enabled, setEnabled] = useState<boolean>(false);
+	const [pushToDictate, setPushToDictate] = useState<boolean>(false);
 
 	useEffect(() => {
 		setEnabled(logic.enabled);
+		setPushToDictate(logic.pushToDictate);
 	}, []);
 
 	return (
@@ -104,13 +131,21 @@ const DeckyDictation: VFC<{ logic: DeckyDictationLogic }> = ({ logic }) => {
 						onChange={(e) => { setEnabled(e); logic.enabled = e; }}
 					/>
 				</PanelSectionRow>
+				<PanelSectionRow>
+					<ToggleField
+						label="Push To Dictate"
+						checked={pushToDictate}
+						disabled={enabled}
+						onChange={(e) => { setPushToDictate(e); logic.pushToDictate = e; }}
+					/>
+				</PanelSectionRow>
 			</PanelSection>
 			<PanelSection title="How to use:">
 				<PanelSectionRow>
 					<div>
-						L5 to begin speech to text input
+						L5 to begin speech to text input, hold if "Push To Dictate" is enabled.
 						<br />
-						R5 to end speech to text input
+						R5 to end speech to text input if "Push To Dictate" is disabled.
 					</div>
 					<div>
 						Currently this plugin only works in a game (first opened game if you have more opened at once; not working in home, store or steam chat ui etc).
