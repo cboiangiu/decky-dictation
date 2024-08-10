@@ -71,7 +71,7 @@ class DeckyDictationLogic {
 
 	handlePushToDictate = async (val: any[]) => {
 		for (const inputs of val) {
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 15)) {
+			if (inputs.ulUpperButtons && inputs.ulButtons && inputs.ulUpperButtons & (1 << 18) && inputs.ulButtons & (1 << 15)) {
 				if (!this.dictating) {
 					this.dictating = true;
 					this.serverAPI.callPluginMethod('begin', { push_to_dictate: true });
@@ -90,7 +90,7 @@ class DeckyDictationLogic {
 			if (Date.now() - this.pressedAt < 2000) {
 				continue;
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 15)) {
+			if (inputs.ulUpperButtons && inputs.ulButtons && inputs.ulUpperButtons & (1 << 18) && inputs.ulButtons & (1 << 15)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -99,7 +99,7 @@ class DeckyDictationLogic {
 				this.serverAPI.callPluginMethod('begin', { push_to_dictate: false });
 				await this.notify("Decky Dictation", 2000, "Starting speech to text input");
 			}
-			if (inputs.ulButtons && inputs.ulButtons & (1 << 16)) {
+			if (inputs.ulUpperButtons && inputs.ulButtons && inputs.ulUpperButtons & (1 << 18) && inputs.ulButtons & (1 << 16)) {
 				this.pressedAt = Date.now();
 				(Router as any).DisableHomeAndQuickAccessButtons();
 				setTimeout(() => {
@@ -143,9 +143,9 @@ const DeckyDictation: VFC<{ logic: DeckyDictationLogic }> = ({ logic }) => {
 			<PanelSection title="How to use:">
 				<PanelSectionRow>
 					<div>
-						L5 to begin speech to text input, hold if "Push To Dictate" is enabled.
+						QAM + L5 to begin speech to text input, hold if "Push To Dictate" is enabled.
 						<br />
-						R5 to end speech to text input if "Push To Dictate" is disabled.
+						QAM + R5 to end speech to text input if "Push To Dictate" is disabled.
 					</div>
 					<div>
 						Currently this plugin only works in a game (first opened game if you have more opened at once; not working in home, store or steam chat ui etc).
