@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 CLI_LOCATION="$(pwd)/cli"
 echo "Building plugin in $(pwd)"
+printf "Please input sudo password to proceed.\n"
 
-SYSTEM_ARCH="$(uname -a)"
+# read -s sudopass
 
-if [[ "$SYSTEM_ARCH" =~ "Darwin" ]]; then
-    $CLI_LOCATION/decky plugin build $(pwd)
-else
-    printf "Please input sudo password to proceed.\n"
+# printf "\n"
 
-    # read -s sudopass
-
-    # printf "\n"
-
-    echo $sudopass | sudo $CLI_LOCATION/decky plugin build $(pwd)
-fi
+echo $sudopass | sudo -E $CLI_LOCATION/decky plugin build $(pwd)

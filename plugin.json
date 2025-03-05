@@ -1,22 +1,11 @@
 {
   "name": "Decky Dictation",
-  "author": "cboiangiu",
-  "flags": [
-    "debug"
-  ],
+  "author": "Team Decky Dictation",
+  "flags": [],
+  "api_version": 1,
   "publish": {
-    "tags": [
-      "dictation",
-      "stt",
-      "speech",
-      "to",
-      "text",
-      "input",
-      "voice",
-      "chat",
-      "words"
-    ],
-    "description": "Enjoy speech to text input with Decky Dictation.",
+    "tags": ["dictation", "accessibility", "voice", "input"],
+    "description": "A voice dictation plugin for Steam Deck that enables hands-free text input across the system.",
     "image": "https://github.com/cboiangiu/decky-dictation/raw/main/decky-dictation-screenshot.png"
   }
 }

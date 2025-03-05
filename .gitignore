@@ -22,7 +22,6 @@ coverage
 # Dependency directory
 node_modules
 bower_components
-py_modules
 .pnpm-store
 
 # Editors
@@ -44,16 +43,19 @@ yalc.lock
 .vscode/settings.json
 
 # Ignore output folder
-
 backend/out
 
 # Make sure to ignore any instance of the loader's decky_plugin.py
 decky_plugin.py
 
 # Ignore decky CLI for building plugins
-out
-out/*
 cli/
 cli/*
 cli/decky
-deck.json
+
+# Ignore build plugins
+out
+
+# Ignore dev directory
+dev/plugin_dir/
+
